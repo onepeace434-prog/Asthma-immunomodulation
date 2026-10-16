@@ -18,10 +18,12 @@ def test_is_valid_code():
     assert is_valid_code("J44.1")
     assert is_valid_code("I10")
     assert is_valid_code("E11.9")
-    assert not is_valid_code("J44")
+    assert is_valid_code("J44")          # трёхзначные коды допустимы
     assert not is_valid_code("44.1")
     assert not is_valid_code("J441")
+    assert not is_valid_code("J4")
     assert not is_valid_code("")
+    assert not is_valid_code("J44.123")
 
 
 def test_recommended_copd_code():
