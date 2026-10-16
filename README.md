@@ -1,41 +1,64 @@
-Asthma immunomodulation
-=================================
-**[Click here](
-https://openmetaanalysis.github.io/Asthma-immunomodulation/
-) to see the public view of meta-analysis.**
+# Клинический диагноз
 
-**If you want to be notified of new trials being posted at ClinicalTrials, PubMed, or here:**
-* [Subscribe by email or RSS](files/searching/Keep-up.md) (under construction)
+Streamlit-приложение для формулировки **структурированного клинического диагноза** по правилам российской медицинской документации.
 
-**If you want to comment on this meta-analysis:**
-* Contact a [contributor](../../network/members) if you need access
-* Open an [issue](../../issues/new)
+Диагноз собирается по рубрикам: основное заболевание, конкурирующее/сочетанное, фоновое, осложнения, сопутствующие заболевания. К каждой строке добавляется код МКБ-10. Готовая формулировка выводится единым текстом для копирования в историю болезни.
 
-**If you want to update this meta-analysis:**
+> **Важно:** это инструмент-помощник. Он не заменяет клиническое мышление и не является медицинским изделием. Коды МКБ-10 сверяйте с официальным классификатором.
 
-[Suggested steps](http://tinyurl.com/openMetaAnalysis-steps)
+## Возможности
 
-Text files:
-* [Clinical summary and references](../../tree/gh-pages/index.html)
-* [Data tables](../master/files/data)
-* [PRISMA files](../master/files/PRISMA)
-* [PICO and Bias tables (word processor versions)](../master/files/study-details)
-* [Reconciliation tables (word processor versions)](../master/files/reconciliation-tables)
+- Структурированный ввод по рубрикам диагноза
+- Подсказки и проверка кодов МКБ-10 (краткий справочник)
+- Шаблоны для частых нозологий: ХОБЛ, бронхиальная астма, гипертоническая болезнь, ИБС, сахарный диабет 2 типа
+- Автоматические замечания о несоответствиях формулировки и кода
+- Готовый текст для копирования + карточка на экране
+- Выбор типа диагноза: предварительный / клинический / заключительный клинический
 
-https://github.com/openMetaAnalysis/Template-a-full-living-systematic-review-of-interventions/tree/master/files/reconciliation-tables
+## Установка
 
-Images:
-* [Forest plots](../master/files/forest-plots)
-* [GRADE Profiles](../master/files/GRADE-profiles)
-* [Metaregression plots](../master/files/metaregression) (optional)
-* [Network plots](../master/files/network) (optional)
+```bash
+git clone https://github.com/onepeace434-prog/Asthma-immunomodulation.git
+cd Asthma-immunomodulation
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-**Do you want to make a copy and then suggestion revisions?**
+## Запуск
 
-* '[Fork](../../fork)' this repository
-* Make your edits
-* Initiate a '[Pull request](../../compare/)' for your changes to be merged.
+```bash
+streamlit run app.py
+```
 
--------------------------------
-[Cite and use this content](https://github.com/openMetaAnalysis/openMetaAnalysis.github.io/blob/master/reusing.MD)  - [Edit this page](../../edit/master/README.md) - [License](files/LICENSE.md) - [History](../../commits/master/README.md)  - 
-[Issues and comments](../../issues?q=is%3Aboth+is%3Aissue)
+Откроется в браузере (обычно http://localhost:8501).
+
+## Тесты
+
+```bash
+pip install pytest
+python -m pytest tests/
+```
+
+## Структура
+
+```
+├── app.py                 # Streamlit-интерфейс
+├── diagnosis.py           # логика сборки, шаблоны, валидация
+├── icd10_data.py          # краткий справочник МКБ-10
+├── requirements.txt
+├── tests/
+│   └── test_diagnosis.py   # unit-тесты логики
+└── .streamlit/
+    └── config.toml         # тема интерфейса
+```
+
+## Ограничения
+
+- Справочник МКБ-10 — краткий, для подсказок. Полный классификатор нужно сверять самостоятельно.
+- Шаблоны покрывают типовые случаи; сложные формулировки лучше дописывать вручную.
+- Не валидировано клинически.
+
+## Лицензия
+
+Исследовательский / учебный инструмент. Используйте на свой риск.
